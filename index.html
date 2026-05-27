@@ -1,133 +1,279 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Formulir Pendaftaran Mahasiswa Baru</title>
-  <link rel="stylesheet" href="form.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="container">
-    <h1>Formulir Pendaftaran Mahasiswa Baru</h1>
+  <div class="loader" id="loader" aria-live="polite">
+    <div class="loader__pattern"></div>
+    <div class="loader__card">
+      <div class="loader__shapes" aria-hidden="true">
+        <span class="shape shape--yellow"></span>
+        <span class="shape shape--pink"></span>
+        <span class="shape shape--blue"></span>
+        <span class="shape shape--green"></span>
+      </div>
+      <p class="loader__kicker">Portal PMB 2026</p>
+      <h1>Menyiapkan formulir super serius...</h1>
+      <p class="loader__text" id="loadingText">Merapikan meja registrasi</p>
+      <div class="progress" aria-label="Memuat halaman">
+        <span id="progressBar"></span>
+      </div>
+      <strong id="progressNumber">0%</strong>
+    </div>
+  </div>
 
-    <form id="pendaftaran" action="#" method="post" enctype="multipart/form-data" autocomplete="on">
+  <main class="page-shell is-hidden" id="pageShell">
+    <section class="hero brutal-card interactive-card">
+      <div class="hero__content">
+        <p class="eyebrow">Formulir Pendaftaran Mahasiswa Baru</p>
+        <h1>Daftar kampus impian dengan form yang berani tampil beda.</h1>
+        <p>
+          Lengkapi data pendaftaran, pilih program studi, unggah berkas, lalu kirim
+          setelah semua informasi valid.
+        </p>
+      </div>
+      <div class="hero__badge" aria-hidden="true">
+        <span>PMB</span>
+        <strong>2026</strong>
+      </div>
+    </section>
 
-      <!-- ====================== A. DATA PRIBADI ====================== -->
-      <fieldset>
-        <legend>A. Data Pribadi</legend>
-
-        <label for="nama">1. Nama Lengkap</label>
-        <input id="nama" name="nama_lengkap" type="text" required placeholder="Nama lengkap sesuai dokumen" />
-
-        <label for="tempat_lahir">2. Tempat, Tanggal Lahir</label>
-        <input id="tempat_lahir" name="tempat_lahir" type="text" required placeholder="Contoh: Bandung" />
-        <input id="tgl_lahir" name="tanggal_lahir" type="date" required />
-
-        <label>3. Jenis Kelamin</label>
-        <div role="group">
-          <input id="jk_l" type="radio" name="jenis_kelamin" value="Laki-laki" required />
-          <label for="jk_l">Laki-laki</label>
-          <input id="jk_p" type="radio" name="jenis_kelamin" value="Perempuan" />
-          <label for="jk_p">Perempuan</label>
+    <form class="registration-form" id="registrationForm" novalidate>
+      <section class="form-section brutal-card interactive-card" data-card>
+        <div class="section-heading">
+          <span>01</span>
+          <div>
+            <h2>Data Pribadi</h2>
+            <p>Identitas dasar calon mahasiswa.</p>
+          </div>
         </div>
 
-        <label for="agama">4. Agama</label>
-        <input id="agama" name="agama" type="text" required placeholder="Islam / Kristen / Hindu / dsb." />
+        <div class="field-grid">
+          <label class="field">
+            <span>Nama Lengkap</span>
+            <input type="text" name="nama" required placeholder="Contoh: Alya Putri Santoso">
+            <small class="error-message"></small>
+          </label>
 
-        <label for="alamat">5. Alamat Lengkap</label>
-        <textarea id="alamat" name="alamat" rows="3" required placeholder="Alamat sesuai KTP / KK"></textarea>
+          <label class="field">
+            <span>NIK</span>
+            <input type="text" name="nik" required inputmode="numeric" placeholder="16 digit NIK">
+            <small class="error-message"></small>
+          </label>
 
-        <label for="hp">6. No. HP / WhatsApp</label>
-        <input id="hp" name="no_hp" type="tel" pattern="[0-9+\\s-]{6,20}" required placeholder="08xxxx..." />
+          <label class="field">
+            <span>Tempat Lahir</span>
+            <input type="text" name="tempatLahir" required placeholder="Bandung">
+            <small class="error-message"></small>
+          </label>
 
-        <label for="email">7. Email</label>
-        <input id="email" name="email" type="email" required placeholder="email@contoh.com" />
+          <label class="field">
+            <span>Tanggal Lahir</span>
+            <input type="date" name="tanggalLahir" required>
+            <small class="error-message"></small>
+          </label>
 
-        <label for="nik">8. Nomor Induk Kependudukan (NIK)</label>
-        <input id="nik" name="nik" type="text" pattern="\\d{10,20}" required placeholder="NIK (tanpa spasi)" />
-      </fieldset>
+          <label class="field">
+            <span>Jenis Kelamin</span>
+            <select name="jenisKelamin" required>
+              <option value="">Pilih jenis kelamin</option>
+              <option>Laki-laki</option>
+              <option>Perempuan</option>
+            </select>
+            <small class="error-message"></small>
+          </label>
 
-      <!-- ====================== B. DATA PENDIDIKAN ====================== -->
-      <fieldset>
-        <legend>B. Data Pendidikan</legend>
+          <label class="field">
+            <span>Email Aktif</span>
+            <input type="email" name="email" required placeholder="nama@email.com">
+            <small class="error-message"></small>
+          </label>
 
-        <label for="asal_sekolah">1. Asal Sekolah</label>
-        <input id="asal_sekolah" name="asal_sekolah" type="text" required />
+          <label class="field">
+            <span>No. WhatsApp</span>
+            <input type="tel" name="whatsapp" required placeholder="08xxxxxxxxxx">
+            <small class="error-message"></small>
+          </label>
 
-        <label for="jurusan_asal">2. Jurusan Asal</label>
-        <input id="jurusan_asal" name="jurusan_asal" type="text" />
+          <label class="field field--wide">
+            <span>Alamat Lengkap</span>
+            <textarea name="alamat" rows="4" required placeholder="Tulis alamat domisili lengkap"></textarea>
+            <small class="error-message"></small>
+          </label>
+        </div>
+      </section>
 
-        <label for="tahun_lulus">3. Tahun Lulus</label>
-        <input id="tahun_lulus" name="tahun_lulus" type="number" min="1900" max="2099" step="1" required />
+      <section class="form-section brutal-card interactive-card" data-card>
+        <div class="section-heading">
+          <span>02</span>
+          <div>
+            <h2>Data Pendidikan</h2>
+            <p>Riwayat sekolah terakhir.</p>
+          </div>
+        </div>
 
-        <label for="nilai">4. Nilai Rata-Rata Rapor / Ijazah</label>
-        <input id="nilai" name="nilai_rata" type="text" placeholder="Contoh: 8.20 / 85" />
-      </fieldset>
+        <div class="field-grid">
+          <label class="field">
+            <span>Asal Sekolah</span>
+            <input type="text" name="asalSekolah" required placeholder="SMA Negeri 1 Nusantara">
+            <small class="error-message"></small>
+          </label>
 
-      <!-- ====================== C. PROGRAM STUDI ====================== -->
-      <fieldset>
-        <legend>C. Program Studi yang Dipilih</legend>
+          <label class="field">
+            <span>Jurusan Asal</span>
+            <select name="jurusanAsal" required>
+              <option value="">Pilih jurusan</option>
+              <option>IPA</option>
+              <option>IPS</option>
+              <option>Bahasa</option>
+              <option>SMK Teknik</option>
+              <option>SMK Bisnis</option>
+              <option>Lainnya</option>
+            </select>
+            <small class="error-message"></small>
+          </label>
 
-        <label for="pil1">Pilihan 1</label>
-        <input id="pil1" name="pilihan_1" type="text" required />
+          <label class="field">
+            <span>Tahun Lulus</span>
+            <input type="number" name="tahunLulus" required min="2010" max="2026" placeholder="2026">
+            <small class="error-message"></small>
+          </label>
 
-        <label for="pil2">Pilihan 2</label>
-        <input id="pil2" name="pilihan_2" type="text" />
-      </fieldset>
+          <label class="field">
+            <span>Nilai Rata-Rata</span>
+            <input type="number" name="nilai" required min="0" max="100" step="0.01" placeholder="88.50">
+            <small class="error-message"></small>
+          </label>
+        </div>
+      </section>
 
-      <!-- ====================== D. DATA ORANG TUA / WALI ====================== -->
-      <fieldset>
-        <legend>D. Data Orang Tua / Wali</legend>
+      <section class="form-section brutal-card interactive-card" data-card>
+        <div class="section-heading">
+          <span>03</span>
+          <div>
+            <h2>Program Studi</h2>
+            <p>Pilih jalur akademik yang paling cocok.</p>
+          </div>
+        </div>
 
-        <label for="ayah">1. Nama Ayah</label>
-        <input id="ayah" name="nama_ayah" type="text" />
+        <div class="study-options" data-choice-group>
+          <label class="study-card">
+            <input type="radio" name="programStudi" value="Teknik Informatika" required>
+            <span>Teknik Informatika</span>
+          </label>
+          <label class="study-card">
+            <input type="radio" name="programStudi" value="Sistem Informasi">
+            <span>Sistem Informasi</span>
+          </label>
+          <label class="study-card">
+            <input type="radio" name="programStudi" value="Manajemen">
+            <span>Manajemen</span>
+          </label>
+          <label class="study-card">
+            <input type="radio" name="programStudi" value="Desain Komunikasi Visual">
+            <span>Desain Komunikasi Visual</span>
+          </label>
+        </div>
+        <small class="error-message group-error" data-group-error="programStudi"></small>
+      </section>
 
-        <label for="pekerjaan_ayah">2. Pekerjaan Ayah</label>
-        <input id="pekerjaan_ayah" name="pekerjaan_ayah" type="text" />
+      <section class="form-section brutal-card interactive-card" data-card>
+        <div class="section-heading">
+          <span>04</span>
+          <div>
+            <h2>Data Orang Tua / Wali</h2>
+            <p>Kontak keluarga yang dapat dihubungi.</p>
+          </div>
+        </div>
 
-        <label for="ibu">3. Nama Ibu</label>
-        <input id="ibu" name="nama_ibu" type="text" />
+        <div class="field-grid">
+          <label class="field">
+            <span>Nama Orang Tua / Wali</span>
+            <input type="text" name="namaWali" required placeholder="Nama lengkap wali">
+            <small class="error-message"></small>
+          </label>
 
-        <label for="pekerjaan_ibu">4. Pekerjaan Ibu</label>
-        <input id="pekerjaan_ibu" name="pekerjaan_ibu" type="text" />
+          <label class="field">
+            <span>Hubungan</span>
+            <select name="hubunganWali" required>
+              <option value="">Pilih hubungan</option>
+              <option>Ayah</option>
+              <option>Ibu</option>
+              <option>Kakak</option>
+              <option>Wali</option>
+            </select>
+            <small class="error-message"></small>
+          </label>
 
-        <label for="alamat_orangtua">5. Alamat Orang Tua / Wali</label>
-        <textarea id="alamat_orangtua" name="alamat_orangtua" rows="2"></textarea>
+          <label class="field">
+            <span>Pekerjaan</span>
+            <input type="text" name="pekerjaanWali" required placeholder="Wiraswasta">
+            <small class="error-message"></small>
+          </label>
 
-        <label for="hp_orangtua">6. No. HP Orang Tua / Wali</label>
-        <input id="hp_orangtua" name="hp_orangtua" type="tel" pattern="[0-9+\\s-]{6,20}" />
-      </fieldset>
+          <label class="field">
+            <span>No. HP Orang Tua / Wali</span>
+            <input type="tel" name="hpWali" required placeholder="08xxxxxxxxxx">
+            <small class="error-message"></small>
+          </label>
+        </div>
+      </section>
 
-      <!-- ====================== E. BERKAS LAMPIRAN ====================== -->
-      <fieldset>
-        <legend>E. Berkas yang Dilampirkan</legend>
+      <section class="form-section brutal-card interactive-card" data-card>
+        <div class="section-heading">
+          <span>05</span>
+          <div>
+            <h2>Berkas Lampiran</h2>
+            <p>Checklist dokumen yang sudah disiapkan.</p>
+          </div>
+        </div>
 
-        <label><input type="checkbox" name="lamp_ijazah" value="1" /> Fotokopi Ijazah / SKL</label>
-        <label><input type="checkbox" name="lamp_ktp" value="1" /> Fotokopi KTP / Kartu Pelajar</label>
-        <label><input type="checkbox" name="lamp_kk" value="1" /> Fotokopi Kartu Keluarga</label>
+        <div class="attachment-grid" data-check-group>
+          <label><input type="checkbox" name="berkas" value="Ijazah"> Ijazah / SKL</label>
+          <label><input type="checkbox" name="berkas" value="KTP"> KTP / Kartu Pelajar</label>
+          <label><input type="checkbox" name="berkas" value="KK"> Kartu Keluarga</label>
+          <label><input type="checkbox" name="berkas" value="Pas Foto"> Pas Foto 3x4</label>
+        </div>
+        <small class="error-message group-error" data-group-error="berkas"></small>
+      </section>
 
-        <label for="pasfoto">Pas Foto 3x4 (maks 2 file)</label>
-        <input id="pasfoto" name="pasfoto[]" type="file" accept="image/*" multiple />
+      <section class="form-section brutal-card interactive-card" data-card>
+        <div class="section-heading">
+          <span>06</span>
+          <div>
+            <h2>Persetujuan</h2>
+            <p>Konfirmasi akhir sebelum formulir dikirim.</p>
+          </div>
+        </div>
 
-        <label for="dokumen_lain">Dokumen lain (opsional)</label>
-        <input id="dokumen_lain" name="dokumen_lain" type="file" accept="application/pdf,image/*" />
-      </fieldset>
-
-      <!-- ====================== F. PERSETUJUAN ====================== -->
-      <fieldset>
-        <legend>F. Persetujuan</legend>
-        <label>
-          <input type="checkbox" id="setuju" name="setuju" required />
-          Saya menyatakan bahwa data yang saya isi adalah benar dan lengkap.
+        <label class="agreement">
+          <input type="checkbox" name="persetujuan" required>
+          <span>Saya menyatakan data yang diisi benar, lengkap, dan dapat dipertanggungjawabkan.</span>
         </label>
-      </fieldset>
+        <small class="error-message group-error" data-group-error="persetujuan"></small>
+      </section>
 
-      <div>
-        <button type="submit">Kirim Pendaftaran</button>
-        <button type="reset">Reset</button>
+      <div class="form-actions brutal-card">
+        <button class="btn btn--secondary" type="reset">Reset Form</button>
+        <button class="btn btn--primary" type="submit">Kirim Pendaftaran</button>
       </div>
     </form>
   </main>
+
+  <div class="modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal__panel brutal-card">
+      <button class="modal__close" type="button" id="closeModal" aria-label="Tutup modal">x</button>
+      <div class="modal__icon" aria-hidden="true">OK</div>
+      <h2 id="modalTitle">Pendaftaran Berhasil!</h2>
+      <p>Data calon mahasiswa sudah lengkap dan siap diproses oleh tim admisi.</p>
+      <button class="btn btn--primary" type="button" id="modalButton">Mantap</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
